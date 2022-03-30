@@ -1,0 +1,9 @@
+.col{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.row ul li{
+    display: inline;
+}
