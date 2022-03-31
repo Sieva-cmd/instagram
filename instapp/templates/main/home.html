@@ -2,7 +2,7 @@
 <br>
 <br>
 
-<div class="container">
+<div class="container" style="margin-top: 100px;">
   <div class="row">
     <div class="col">
         follower7
@@ -29,7 +29,7 @@
 <br />
 <br />
 
-<div class="container" style="top: 100px; position: absolute;">
+<div class="container" style="top: 180px; position: absolute;">
   <div class="row">
     {%for image in images%}
     <div class="col-12">
@@ -42,7 +42,7 @@
         <div class="card-body">
             <p class="card-text"> {{image.caption}} </p>
             <p class="card-text"> comments</p>
-            <p class="card-text" style="font-style: italic;"> comments {{image.comments}}  </p>
+            <p class="card-text" style="font-style: italic;"> {{image.comments}}  </p>
             <button style="margin-left: 180px;"><a href=""> <i class="fa fa-thumbs-up" aria-hidden="true"> like {{image.likes}} </i></a> </button>
             <button style="margin-left: 160px;"> <a href=""> <i class="fa fa-thumbs-down" aria-hidden="true"> dislike {{image.dislikes}} </i></a></button>
         </div>
