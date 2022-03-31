@@ -11,10 +11,9 @@ class Profile(models.Model):
 
     def __str__(self):
 
-        return self.profile
+        return self.bio
 
-    class Meta:
-        ordering = ['profile'] 
+    
 
     def save_profile(self):
         self.save()
@@ -49,8 +48,10 @@ class Image(models.Model):
     class Meta:
         ordering = ['name'] 
 
-    def save_image(self):
-        self.save()   
+    def save_profile(self):
+        self.save() 
+
+
     @classmethod    
     def delete_image(cls,id):
         image =cls.objects.filter(image_id=id).delete()
@@ -63,8 +64,9 @@ class Image(models.Model):
 
     
     @classmethod
-    def filter_by_name(cls,name) :
-        images =cls.objects.filter(name__name=name) 
+    def filter_by_profile(cls,profile) :
+        
+        images =cls.objects.filter(profile__in=profile) 
         return images  
 
     @classmethod     

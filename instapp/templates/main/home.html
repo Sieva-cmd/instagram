@@ -1,4 +1,50 @@
-{%extends 'main/base.html'%}
-{%block content%}
-{{block.super}}
+{%extends 'main/base.html'%} {%block content%} {{block.super}}
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <img src="cinqueterre.jpg" class="rounded-circle" alt="Cinque Terre" />
+    </div>
+    <div class="col">col</div>
+    <div class="col">col</div>
+    <div class="col">col</div>
+    <div class="col">col</div>
+    <div class="col">col</div>
+    <div class="col">col</div>
+
+    <div class="col-sm-4">
+      <p>fghjkhgfdfghjkljhgfghvjklfghjklhgfdghjk</p>
+    </div>
+  </div>
+</div>
+<br />
+<br />
+
+<div class="container">
+  <div class="row">
+    {%for image in images%}
+    <div class="col-8">
+      <div class="card" style="width: 18rem">
+        <h5 class="card-title">{{image.name}} <small style="font-style: italic;"> {{image.pub_date|date}}</small>  </h5>
+ 
+        <img
+          class="card-img-top"
+          src="{{image.image.url}} "
+          alt="Card image cap"
+        />
+        <div class="card-body">
+            <p class="card-text"> {{image.caption}} </p>
+            <p class="card-text"> comments</p>
+            <p class="card-text" style="font-style: italic;"> comments {{image.comments}}  </p>
+            <button><a href=""> <i class="fa fa-thumbs-up" aria-hidden="true"> like {{image.likes}} </i></a> </button>
+            <button style="margin-left: 80px;"> <a href=""> <i class="fa fa-thumbs-down" aria-hidden="true"> dislike {{image.dislikes}} </i></a></button>
+        </div>
+      </div>
+    </div>
+    {%endfor%}
+    <br />
+    <div class="col-4">col-4</div>
+  </div>
+</div>
+
 {%endblock%}
