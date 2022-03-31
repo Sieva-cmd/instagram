@@ -25,7 +25,7 @@
     {%for image in images%}
     <div class="col-8">
       <div class="card" style="width: 18rem">
-        <small>{{image.profile}} </small>
+        
         <h5 class="card-title">{{image.name}} <small style="font-style: italic;"> {{image.pub_date|date}}</small>  </h5>
  
         <img
@@ -47,8 +47,14 @@
     {%for profile in profiles%}
     <div class="col-4">
         
-        <p>{{profile.bio}} </p>
-        <img class="card-img-top rounded-circle" src="{{profile.profile.url}} "alt="Card image cap" width="40%"/>
+        
+        <div class="card" style="width: 18rem;">
+            <h5 class="card-title">Profile</h5>
+            <small>{{profile.bio}} </small>
+            <img class="card-img-top rounded-circle" src="{{profile.profile.url}} "alt="Card image cap"/>
+            <div class="card-body">
+            </div>
+          </div>
 
     </div>
     {%endfor%}
