@@ -10,4 +10,5 @@ from .models import Image,Profile
 def home(request):
     profile =Profile.objects.all()
     images =Image.filter_by_profile(profile)
-    return render(request,'main/home.html',{"images":images})
+    profiles =Profile.filter_profile_by_id(profile)
+    return render(request,'main/home.html',{"images":images,"profiles":profiles})

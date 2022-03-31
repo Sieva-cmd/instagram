@@ -13,8 +13,6 @@ class Profile(models.Model):
 
         return self.bio
 
-    
-
     def save_profile(self):
         self.save()
 
@@ -25,7 +23,13 @@ class Profile(models.Model):
     @classmethod
     def update_profile(cls,profile_id,profile):
         profile = cls.objects.filter(id=profile_id).update(profile =profile) 
-        return profile       
+        return profile 
+
+
+    @classmethod
+    def filter_profile_by_id(cls,profile):
+      profile =cls.objects.filter(id__in=profile) 
+      return profile      
 
 
 
