@@ -1,63 +1,56 @@
 {%extends 'main/base.html'%} {%block content%} {{block.super}}
+<br>
+<br>
 
 <div class="container">
   <div class="row">
     <div class="col">
-      <img src="cinqueterre.jpg" class="rounded-circle" alt="Cinque Terre" />
+        follower7
     </div>
-    <div class="col">col</div>
-    <div class="col">col</div>
-    <div class="col">col</div>
-    <div class="col">col</div>
-    <div class="col">col</div>
-    <div class="col">col</div>
-
+    <div class="col">follower1</div>
+    <div class="col">follower2</div>
+    <div class="col">follower3</div>
+    <div class="col">follower4</div>
+    <div class="col">follower5</div>
+    <div class="col">follower6</div>
+    {%for profile in profiles%}
     <div class="col-sm-4">
-      <p>fghjkhgfdfghjkljhgfghvjklfghjklhgfdghjk</p>
+        <div class="card" style="width: 18rem;">
+            <h5 class="card-title">Profile</h5>
+            <small>{{profile.bio}} </small>
+            <img class="card-img-top rounded-circle img-responsive" src="{{profile.profile.url}} "alt="Card image cap"/>
+            <div class="card-body">
+            </div>
+        </div>
     </div>
+    {%endfor%}
   </div>
 </div>
 <br />
 <br />
 
-<div class="container">
+<div class="container" style="top: 100px; position: absolute;">
   <div class="row">
     {%for image in images%}
-    <div class="col-8">
-      <div class="card" style="width: 18rem">
+    <div class="col-12">
+      <div class="card" style="width: 35rem;margin-bottom: 40px;">
         
         <h5 class="card-title">{{image.name}} <small style="font-style: italic;"> {{image.pub_date|date}}</small>  </h5>
  
-        <img
-          class="card-img-top"
-          src="{{image.image.url}} "
-          alt="Card image cap"
+        <img class="card-img-top img-responsive" src="{{image.image.url}} " alt="Card image cap"
         />
         <div class="card-body">
             <p class="card-text"> {{image.caption}} </p>
             <p class="card-text"> comments</p>
             <p class="card-text" style="font-style: italic;"> comments {{image.comments}}  </p>
-            <button><a href=""> <i class="fa fa-thumbs-up" aria-hidden="true"> like {{image.likes}} </i></a> </button>
-            <button style="margin-left: 80px;"> <a href=""> <i class="fa fa-thumbs-down" aria-hidden="true"> dislike {{image.dislikes}} </i></a></button>
+            <button style="margin-left: 180px;"><a href=""> <i class="fa fa-thumbs-up" aria-hidden="true"> like {{image.likes}} </i></a> </button>
+            <button style="margin-left: 160px;"> <a href=""> <i class="fa fa-thumbs-down" aria-hidden="true"> dislike {{image.dislikes}} </i></a></button>
         </div>
       </div>
     </div>
     {%endfor%}
     <br />
-    {%for profile in profiles%}
-    <div class="col-4">
-        
-        
-        <div class="card" style="width: 18rem;">
-            <h5 class="card-title">Profile</h5>
-            <small>{{profile.bio}} </small>
-            <img class="card-img-top rounded-circle" src="{{profile.profile.url}} "alt="Card image cap"/>
-            <div class="card-body">
-            </div>
-          </div>
-
-    </div>
-    {%endfor%}
+   
   </div>
 </div>
 
