@@ -15,6 +15,7 @@ urlpatterns =[
     re_path(r'register/',views.register_request, name="register"),
     re_path(r'login/', views.login_request, name="login"),
     re_path(r'logout', views.logout_request, name= "logout"),
+    path('like/<id>', views.like, name='like'),
 ]
 
 if settings.DEBUG:

@@ -43,9 +43,11 @@
             <p class="card-text"> {{image.caption}} </p>
             <p class="card-text"> comments</p>
             <p class="card-text" style="font-style: italic;"> {{image.comments}}  </p>
-            <button style="margin-left: 180px;"><a href=""> <i class="fa fa-thumbs-up" aria-hidden="true"> like {{image.likes}} </i></a> </button>
-            <button style="margin-left: 160px;"> <a href=""> <i class="fa fa-thumbs-down" aria-hidden="true"> dislike {{image.dislikes}} </i></a></button>
-
+            <p> <a class="ml-1" href="{%url 'like' image.id%}">Like</a></p>
+             
+          
+          <span class="ml-1 view" style="font-weight: bolder;" >{{image.likes}} likes</span><br>
+       
             <button>
               <a href=" {% url 'image' image.id %} ">View Image </a>
             </button>
