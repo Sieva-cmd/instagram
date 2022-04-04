@@ -12,6 +12,9 @@ urlpatterns =[
     re_path(r'^search/', views.search_results, name='search_results'),
     # re_path(r'^image/(\d+)',views.article,name ='image')
     path('<int:image_id>/',views.image,name='image'),
+    re_path(r'register/',views.register_request, name="register"),
+    re_path(r'login/', views.login_request, name="login"),
+    re_path(r'logout', views.logout_request, name= "logout"),
 ]
 
 if settings.DEBUG:
