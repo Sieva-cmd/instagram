@@ -64,7 +64,7 @@ def register_request(request):
 		form = NewUserForm(request.POST)
 		if form.is_valid():
 			user = form.save()
-			# send_welcome_email(user)
+			send_welcome_email(user)
 			messages.success(request, "Registration successful." )
 			return redirect(login_request)
 		messages.error(request, "Unsuccessful registration. Invalid information.")
@@ -115,7 +115,7 @@ def comment(request, id):
         if form.is_valid():
             new_comment = form.save(commit=False)
             new_comment.image = image
-            # new_comment.user = request.user.profile
+            new_comment.user = request.user.profile
             new_comment.save()
             
             return HttpResponseRedirect(request.path_info)
