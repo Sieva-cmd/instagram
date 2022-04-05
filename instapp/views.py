@@ -5,7 +5,7 @@ from .models import Image,Profile,Preference,Comments,Follow
 from django.http  import Http404,HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import  render, redirect,get_object_or_404
-from .forms import NewUserForm,CommentForm,UpdateUserForm,UpdateUserProfileForm
+from .forms import NewUserForm,CommentForm,UpdateUserForm,UpdateUserProfileForm,PostForm
 from django.contrib.auth import login,authenticate,logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
@@ -17,12 +17,26 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 
-
+@login_required(login_url='/login/')
 def home(request):
     profile =Profile.objects.all()
     images =Image.filter_by_profile(profile)
     profiles =Profile.filter_profile_by_id(profile)
-    return render(request,'main/home.html',{"images":images,"profiles":profiles})
+    comments = Comments.objects.all()
+    all_users = User.objects.exclude(id=request.user.id)
+    current_user = request.user
+
+
+    if request.method == 'POST':
+        post_form = PostForm(request.POST, request.FILES)
+        if post_form.is_valid():
+            post = post_form.save(commit=False)
+            post.user = request.user
+            post.save()
+            return HttpResponseRedirect(reverse("home"))
+    else:
+        post_form = PostForm()
+    return render(request,'main/home.html',{"images":images,"profiles":profiles,'all_users': all_users,'comments':comments,'current_user':current_user})
 
 def search_results(request):
     if 'image' in request.GET and request.GET["image"]:
@@ -144,7 +158,7 @@ def user_profile(request, username):
             if_follow = False
 
     print(followers)
-    return render(request, 'all-instagram/poster.html', {'user_poster': user_poster,'followers': followers, 'if_follow': if_follow,'user_posts':user_posts})
+    return render(request, 'main/poster.html', {'user_poster': user_poster,'followers': followers, 'if_follow': if_follow,'user_posts':user_posts})
 @login_required(login_url='login')
 def unfollow(request, to_unfollow):
     if request.method == 'GET':
