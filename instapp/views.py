@@ -115,7 +115,7 @@ def comment(request, id):
         if form.is_valid():
             new_comment = form.save(commit=False)
             new_comment.image = image
-            new_comment.user = request.user.profile
+            # new_comment.user = request.user.profile
             new_comment.save()
             
             return HttpResponseRedirect(request.path_info)
