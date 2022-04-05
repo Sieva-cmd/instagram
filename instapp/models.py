@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 import datetime as dt
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 
@@ -18,14 +20,22 @@ class Profile(models.Model):
     def save_profile(self):
         self.save()
 
-    @classmethod    
-    def delete_profile(cls,id):
-        profile =cls.objects.filter(profile_id=id).delete()
-        return profile  
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
+
+   
+    def delete_profile(self):
+        self.delete()
+
     @classmethod
-    def update_profile(cls,profile_id,profile):
-        profile = cls.objects.filter(id=profile_id).update(profile =profile) 
-        return profile 
+    def search_profile(cls, name):
+        return cls.objects.filter(user__username__icontains=name).all()
 
 
     @classmethod
@@ -113,4 +123,9 @@ class Comments(models.Model):
 
     
 
+class Follow(models.Model):
+    follower = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='following')
+    followed = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='followers')
 
+    def __str__(self):
+        return f'{self.follower} Follow'

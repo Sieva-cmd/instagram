@@ -5,7 +5,7 @@ from .models import Image,Profile,Preference,Comments
 from django.http  import Http404,HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import  render, redirect,get_object_or_404
-from .forms import NewUserForm,CommentForm
+from .forms import NewUserForm,CommentForm,UpdateUserForm,UpdateUserProfileForm
 from django.contrib.auth import login,authenticate,logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
@@ -110,3 +110,37 @@ def comment(request, id):
 
     return render(request, 'main/post.html', {'image': image,'form': form,'comments':comments})
 
+@login_required(login_url='login')
+def profile(request, username):
+    images = request.user.images.all()
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user.profile)
+        profile_form = UpdateUserProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return HttpResponseRedirect(request.path_info)
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+        profile_form = UpdateUserProfileForm()
+
+    return render(request, 'main/profile.html', {'user_form':user_form,'profile_form':profile_form,'images':images})
+
+
+@login_required(login_url='login')
+def user_profile(request, username):
+    user_poster = get_object_or_404(User, username=username)
+    if request.user == user_poster:
+        return redirect('profile', username=request.user.username)
+    user_posts = user_poster.images.all()
+    
+    followers = Follow.objects.filter(followed=user_poster.profile)
+    if_follow = None
+    for follower in followers:
+        if request.user.profile == follower.follower:
+            if_follow = True
+        else:
+            if_follow = False
+
+    print(followers)
+    return render(request, 'all-instagram/poster.html', {'user_poster': user_poster,'followers': followers, 'if_follow': if_follow,'user_posts':user_posts})

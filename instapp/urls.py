@@ -17,6 +17,8 @@ urlpatterns =[
     re_path(r'logout', views.logout_request, name= "logout"),
     path('like/<id>', views.like, name='like'),
     path('image/<id>', views.comment, name='comment'),
+    path('profile/<username>/', views.profile, name='profile'),
+    path('user_profile/<username>/', views.user_profile, name='user_profile'),
 ]
 
 if settings.DEBUG:
