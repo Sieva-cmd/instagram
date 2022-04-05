@@ -7,7 +7,7 @@ A clone of instagram
 - A full stack  developer.
 
 ## website image
-![My Gallery]()
+![My Gallery](https://github.com/Sieva-cmd/instagram/blob/master/media/photos/web.png)
 
 ## set up instructions
 -  Go to  Github  using the Link provided.
@@ -16,7 +16,7 @@ A clone of instagram
 - cd to your project folder
 - if you don't have a folder cd Documents and mkdir myProject
 - cd myProject and write the command below to clone repository
-- git clone https://github.com/Sieva-cmd/My-Gallery.git 
+- git clone https://github.com/Sieva-cmd/instagram.git
 - Bingo! You have My Gallery application in your machine
 
 ## Requirements
@@ -26,7 +26,7 @@ A clone of instagram
 
 
 ## Installation
-Click on this link to view the website in github https://github.com/Sieva-cmd/My-Gallery.git 
+Click on this link to view the website in github https://github.com/Sieva-cmd/instagram.git
 
 ## Technology used 
 - PYTHON - for backend coding
