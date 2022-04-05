@@ -64,7 +64,7 @@ def register_request(request):
 		form = NewUserForm(request.POST)
 		if form.is_valid():
 			user = form.save()
-			send_welcome_email(user)
+		
 			messages.success(request, "Registration successful." )
 			return redirect(login_request)
 		messages.error(request, "Unsuccessful registration. Invalid information.")
