@@ -1,11 +1,11 @@
 
 import datetime as dt
 from django.contrib.auth.decorators import login_required
-from .models import Image,Profile,Preference
+from .models import Image,Profile,Preference,Comments
 from django.http  import Http404,HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import  render, redirect,get_object_or_404
-from .forms import NewUserForm
+from .forms import NewUserForm,CommentForm
 from django.contrib.auth import login,authenticate,logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
@@ -89,3 +89,24 @@ def like(request, id):
     image.likes += 1
     image.save()
     return HttpResponseRedirect(reverse("home"))
+
+
+@login_required(login_url='login')
+def comment(request, id):
+    image = Image.objects.get(id=id)
+    comments = Comments.objects.all()
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.image = image
+            new_comment.user = request.user.profile
+            new_comment.save()
+            
+            return HttpResponseRedirect(request.path_info)
+            
+    else:
+        form = CommentForm()
+
+    return render(request, 'main/post.html', {'image': image,'form': form,'comments':comments})
+

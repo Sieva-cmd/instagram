@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'instapp.apps.InstappConfig',
     'bootstrap4',
     'crispy_forms',
+    'emoji_picker',
 ]
 
 MIDDLEWARE = [
