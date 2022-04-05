@@ -145,3 +145,18 @@ def user_profile(request, username):
 
     print(followers)
     return render(request, 'all-instagram/poster.html', {'user_poster': user_poster,'followers': followers, 'if_follow': if_follow,'user_posts':user_posts})
+@login_required(login_url='login')
+def unfollow(request, to_unfollow):
+    if request.method == 'GET':
+        unfollow_profile = Profile.objects.get(pk=to_unfollow)
+        new_unfollowed = Follow.objects.filter(follower=request.user.profile, followed=unfollow_profile)
+        new_unfollowed.delete()
+        return redirect('user_profile', unfollow_profile.user.username)
+
+@login_required(login_url='login')
+def follow(request, to_follow):
+    if request.method == 'GET':
+        follow_profile = Profile.objects.get(pk=to_follow)
+        new_following = Follow(follower=request.user.profile, followed=follow_profile)
+        new_following.save()
+        return redirect('user_profile', follow_profile.user.username)
