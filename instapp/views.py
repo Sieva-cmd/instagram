@@ -1,7 +1,7 @@
 
 import datetime as dt
 from django.contrib.auth.decorators import login_required
-from .models import Image,Profile,Preference,Comments
+from .models import Image,Profile,Preference,Comments,Follow
 from django.http  import Http404,HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import  render, redirect,get_object_or_404
@@ -11,6 +11,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from .email import send_welcome_email
 from django.urls import reverse
+from django.contrib.auth.models import User
     
 
 
